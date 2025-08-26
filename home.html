@@ -3,50 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="icon" type="image/ico" sizes="32x32" href="simfund_logo.png">
-    <link rel="stylesheet" href="home.css">
+    <title>Money Transfer System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .card-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .amount-section {
+            background: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .amount-inputs {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .amount-inputs > div {
+            flex: 1;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .send-btn {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .send-btn:hover {
+            background: #219653;
+        }
+        
+        .search-btn {
+            background: #3498db;
+            color: white;
+        }
+        
+        .search-btn:hover {
+            background: #2980b9;
+        }
+        
+        .transaction-search {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .transfer-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .option {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        
+        .option-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .amount-inputs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .transfer-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <img src="simfund_logo.png" alt="Simfund Logo" class="logo">
-        <h1>Home</h1>
-    </header>
-
-    <nav>
-        <ul>
-            <li><a href="index.html" target="_self">Main Page</a></li>
-            <li><a href="home.html" target="_self">Home</a></li>
-            <li><a href="services.html" target="_self">Services</a></li>
-            <li><a href="about.html" target="_self">About Us</a></li>
-            <li><a href="contact.html" target="_self">Contact</a></li>
-        </ul>
-    </nav>
-
-    <main>
-        <div class="service">
-            <h3>Foreign Exchange Rates</h3>
-            <p>Check live foreign exchange rates <a href="https://www.x-rates.com" target="_blank">here</a>.</p>
-        </div>
-        <div class="service">
-            <h3>Crypto Exchange Rates</h3>
-            <p>Check live crypto exchange rates <a href="https://www.coingecko.com" target="_blank">here</a>.</p>
-            <h4>Crypto conversion to cash then mpesa</h4>
-            <p>Please contact the developer at the contacts page to assist you in crypto conversion to mpesa.</p>
-            <p>A fully automated system will be available soon which is in the following link: https://simfund-crypto-converter.netlify.app/</p>
-        </div>
-
-        <!-- News Slider Section -->
-        <div class="news-slider">
-            <div class="news-slides" id="newsSlides">
-                <!-- News slides will be populated here -->
+    <div class="container">
+        <header>
+            <div class="logo">SecureTransfer</div>
+            <div class="subtitle">Money Transfer System</div>
+        </header>
+        
+        <div class="content">
+            <div class="card">
+                <div class="card-info">
+                    <div>
+                        <div class="label">Sending card no:</div>
+                        <div class="value">144752284725</div>
+                    </div>
+                    <div>
+                        <div class="label">Check no:</div>
+                        <div class="value">-</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="recipient">+CD Recipient card no:</label>
+                <input type="text" id="recipient" placeholder="Enter recipient card number">
+            </div>
+            
+            <div class="form-group">
+                <label for="checkno">Recipient check no:</label>
+                <input type="text" id="checkno" placeholder="Optional">
+            </div>
+            
+            <div class="transfer-options">
+                <div class="option">
+                    <div class="option-title">to smm, name no:</div>
+                    <input type="text" placeholder="Aggert no:">
+                </div>
+                
+                <div class="option">
+                    <div class="option-title">to byprint, name no:</div>
+                    <input type="text" placeholder="By bill no:">
+                </div>
+                
+                <div class="option">
+                    <div class="option-title">to Boggle, fill no:</div>
+                    <input type="text" placeholder="Phone number">
+                </div>
+                
+                <div class="option">
+                    <div class="option-title">to Pothi, name no:</div>
+                    <input type="text" placeholder="Account no:">
+                </div>
+            </div>
+            
+            <div class="amount-section">
+                <div class="form-group">
+                    <label for="amount">Enter Amount:</label>
+                    <div class="amount-inputs">
+                        <div>
+                            <input type="number" id="amount" placeholder="Enter amount">
+                        </div>
+                        <div>
+                            <input type="number" id="confirmAmount" placeholder="Confirm amount">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="send-btn" id="sendButton">Send Transaction</button>
+                <button class="search-btn" id="searchButton">Transaction Search</button>
+            </div>
+            
+            <div class="transaction-search" id="searchSection">
+                <div class="form-group">
+                    <label for="searchCard">Card no:</label>
+                    <input type="text" id="searchCard" placeholder="Enter card number to search">
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <footer>
-        <p>&copy; 2024-2025 Simfund Financial Inclusion System. All rights reserved.</p>
-    </footer>
-    <script src="home.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sendButton = document.getElementById('sendButton');
+            const searchButton = document.getElementById('searchButton');
+            const searchSection = document.getElementById('searchSection');
+            const amountInput = document.getElementById('amount');
+            const confirmAmountInput = document.getElementById('confirmAmount');
+            
+            // Initially hide the search section
+            searchSection.style.display = 'none';
+            
+            // Toggle search section
+            searchButton.addEventListener('click', function() {
+                if (searchSection.style.display === 'none') {
+                    searchSection.style.display = 'block';
+                } else {
+                    searchSection.style.display = 'none';
+                }
+            });
+            
+            // Send button functionality
+            sendButton.addEventListener('click', function() {
+                const recipient = document.getElementById('recipient').value;
+                const amount = amountInput.value;
+                const confirmAmount = confirmAmountInput.value;
+                
+                if (!recipient) {
+                    alert('Please enter recipient card number');
+                    return;
+                }
+                
+                if (!amount || !confirmAmount) {
+                    alert('Please enter and confirm the amount');
+                    return;
+                }
+                
+                if (amount !== confirmAmount) {
+                    alert('Amounts do not match. Please confirm the same amount.');
+                    return;
+                }
+                
+                // Simulate successful transaction
+                alert(`Transaction successful!\nSent $${amount} to card: ${recipient}`);
+                
+                // Reset form
+                document.getElementById('recipient').value = '';
+                amountInput.value = '';
+                confirmAmountInput.value = '';
+            });
+            
+            // Real-time amount validation
+            confirmAmountInput.addEventListener('input', function() {
+                if (amountInput.value !== confirmAmountInput.value) {
+                    confirmAmountInput.style.borderColor = '#e74c3c';
+                } else {
+                    confirmAmountInput.style.borderColor = '#27ae60';
+                }
+            });
+        });
+    </script>
 </body>
 </html>

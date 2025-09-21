@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Transfer System</title>
+    <title>SecureTransfer - Money Transfer System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --success: #27ae60;
+            --gray: #95a5a6;
         }
         
         body {
@@ -19,28 +32,64 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: var(--dark);
         }
         
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         header {
-            background: #2c3e50;
+            background: var(--primary);
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
+            position: relative;
         }
         
         .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
         
         .content {
@@ -48,17 +97,41 @@
         }
         
         .card {
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: var(--light);
+            border-radius: 10px;
             padding: 20px;
             margin-bottom: 25px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .card-info {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
+            width: 100%;
+        }
+        
+        .card-detail {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .card-icon {
+            color: var(--secondary);
+            font-size: 24px;
         }
         
         .form-group {
@@ -69,28 +142,61 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        label i {
+            color: var(--secondary);
         }
         
         input, select {
             width: 100%;
-            padding: 12px 15px;
+            padding: 15px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
-            transition: border 0.3s;
+            transition: all 0.3s;
         }
         
         input:focus, select:focus {
-            border-color: #3498db;
+            border-color: var(--secondary);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .input-with-icon input {
+            padding-left: 45px;
         }
         
         .amount-section {
             background: #e8f4fc;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 10px;
             margin: 25px 0;
+            border: 1px solid #c3e0fa;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
         }
         
         .amount-inputs {
@@ -110,36 +216,44 @@
         
         button {
             flex: 1;
-            padding: 15px;
+            padding: 17px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .send-btn {
-            background: #27ae60;
+            background: var(--success);
             color: white;
         }
         
         .send-btn:hover {
             background: #219653;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
         }
         
         .search-btn {
-            background: #3498db;
+            background: var(--secondary);
             color: white;
         }
         
         .search-btn:hover {
             background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
         
         .transaction-search {
             margin-top: 40px;
-            padding-top: 20px;
+            padding-top: 25px;
             border-top: 1px dashed #ddd;
         }
         
@@ -152,18 +266,61 @@
         
         .option {
             background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 10px;
             border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-color: var(--secondary);
         }
         
         .option-title {
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--dark);
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        @media (max-width: 600px) {
+        .option-title i {
+            color: var(--secondary);
+        }
+        
+        .security-note {
+            background: #fff8e6;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .security-note i {
+            color: var(--warning);
+            font-size: 24px;
+        }
+        
+        .security-text {
+            font-size: 14px;
+        }
+        
+        footer {
+            background: var(--light);
+            padding: 20px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
             .amount-inputs {
                 flex-direction: column;
                 gap: 10px;
@@ -176,88 +333,227 @@
             .buttons {
                 flex-direction: column;
             }
+            
+            .card-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+        
+        .transaction-history {
+            margin-top: 30px;
+        }
+        
+        .history-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .history-item:hover {
+            background: #f9f9f9;
+        }
+        
+        .history-date {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .history-amount {
+            font-weight: 600;
+        }
+        
+        .sent {
+            color: var(--success);
+        }
+        
+        .received {
+            color: var(--secondary);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo">SecureTransfer</div>
-            <div class="subtitle">Money Transfer System</div>
+            <div class="logo">
+                <i class="fas fa-money-bill-transfer"></i>
+                <span>SecureTransfer</span>
+            </div>
+            <div class="subtitle">Secure & Fast Money Transfer System</div>
+            <div class="notification-badge">
+                <i class="fas fa-bell"></i>
+            </div>
         </header>
         
         <div class="content">
             <div class="card">
                 <div class="card-info">
-                    <div>
+                    <div class="card-detail">
                         <div class="label">Sending card no:</div>
                         <div class="value">144752284725</div>
                     </div>
-                    <div>
+                    <div class="card-detail">
                         <div class="label">Check no:</div>
                         <div class="value">-</div>
                     </div>
                 </div>
+                <div class="card-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
             </div>
             
             <div class="form-group">
-                <label for="recipient">+CD Recipient card no:</label>
-                <input type="text" id="recipient" placeholder="Enter recipient card number">
+                <label for="recipient">
+                    <i class="fas fa-user-circle"></i>
+                    +CD Recipient card no:
+                </label>
+                <div class="input-with-icon">
+                    <i class="fas fa-credit-card"></i>
+                    <input type="text" id="recipient" placeholder="Enter recipient card number">
+                </div>
             </div>
             
             <div class="form-group">
-                <label for="checkno">Recipient check no:</label>
+                <label for="checkno">
+                    <i class="fas fa-receipt"></i>
+                    Recipient check no:
+                </label>
                 <input type="text" id="checkno" placeholder="Optional">
+            </div>
+            
+            <div class="security-note">
+                <i class="fas fa-shield-alt"></i>
+                <div class="security-text">
+                    <strong>Security Tip:</strong> Always verify the recipient's details before sending money. 
+                    Transactions are encrypted for your security.
+                </div>
             </div>
             
             <div class="transfer-options">
                 <div class="option">
-                    <div class="option-title">to smm, name no:</div>
+                    <div class="option-title">
+                        <i class="fas fa-comment-sms"></i>
+                        to smm, name no:
+                    </div>
                     <input type="text" placeholder="Aggert no:">
                 </div>
                 
                 <div class="option">
-                    <div class="option-title">to byprint, name no:</div>
+                    <div class="option-title">
+                        <i class="fas fa-print"></i>
+                        to byprint, name no:
+                    </div>
                     <input type="text" placeholder="By bill no:">
                 </div>
                 
                 <div class="option">
-                    <div class="option-title">to Boggle, fill no:</div>
+                    <div class="option-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        to Boggle, fill no:
+                    </div>
                     <input type="text" placeholder="Phone number">
                 </div>
                 
                 <div class="option">
-                    <div class="option-title">to Pothi, name no:</div>
+                    <div class="option-title">
+                        <i class="fas fa-wallet"></i>
+                        to Pothi, name no:
+                    </div>
                     <input type="text" placeholder="Account no:">
                 </div>
             </div>
             
             <div class="amount-section">
+                <div class="section-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Transfer Amount</span>
+                </div>
                 <div class="form-group">
-                    <label for="amount">Enter Amount:</label>
                     <div class="amount-inputs">
                         <div>
-                            <input type="number" id="amount" placeholder="Enter amount">
+                            <label for="amount">Enter Amount ($):</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                                <input type="number" id="amount" placeholder="Enter amount">
+                            </div>
                         </div>
                         <div>
-                            <input type="number" id="confirmAmount" placeholder="Confirm amount">
+                            <label for="confirmAmount">Confirm Amount ($):</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                                <input type="number" id="confirmAmount" placeholder="Confirm amount">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="buttons">
-                <button class="send-btn" id="sendButton">Send Transaction</button>
-                <button class="search-btn" id="searchButton">Transaction Search</button>
+                <button class="send-btn" id="sendButton">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Transaction
+                </button>
+                <button class="search-btn" id="searchButton">
+                    <i class="fas fa-search"></i>
+                    Transaction Search
+                </button>
             </div>
             
             <div class="transaction-search" id="searchSection">
+                <div class="section-title">
+                    <i class="fas fa-search"></i>
+                    <span>Search Transactions</span>
+                </div>
                 <div class="form-group">
                     <label for="searchCard">Card no:</label>
-                    <input type="text" id="searchCard" placeholder="Enter card number to search">
+                    <div class="input-with-icon">
+                        <i class="fas fa-credit-card"></i>
+                        <input type="text" id="searchCard" placeholder="Enter card number to search">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="transaction-history">
+                <div class="history-title">
+                    <i class="fas fa-history"></i>
+                    <span>Recent Transactions</span>
+                </div>
+                <div class="history-item">
+                    <div>
+                        <div>To: John Doe</div>
+                        <div class="history-date">Aug 25, 2023</div>
+                    </div>
+                    <div class="history-amount sent">-$250.00</div>
+                </div>
+                <div class="history-item">
+                    <div>
+                        <div>From: Sarah Smith</div>
+                        <div class="history-date">Aug 24, 2023</div>
+                    </div>
+                    <div class="history-amount received">+$150.00</div>
+                </div>
+                <div class="history-item">
+                    <div>
+                        <div>To: Electric Company</div>
+                        <div class="history-date">Aug 22, 2023</div>
+                    </div>
+                    <div class="history-amount sent">-$85.50</div>
                 </div>
             </div>
         </div>
+        
+        <footer>
+            <p>&copy; 2023 SecureTransfer. All rights reserved. | <i class="fas fa-lock"></i> Secured by SSL Encryption</p>
+        </footer>
     </div>
 
     <script>
@@ -275,8 +571,10 @@
             searchButton.addEventListener('click', function() {
                 if (searchSection.style.display === 'none') {
                     searchSection.style.display = 'block';
+                    searchButton.innerHTML = '<i class="fas fa-times"></i> Close Search';
                 } else {
                     searchSection.style.display = 'none';
+                    searchButton.innerHTML = '<i class="fas fa-search"></i> Transaction Search';
                 }
             });
             
@@ -317,6 +615,15 @@
                 } else {
                     confirmAmountInput.style.borderColor = '#27ae60';
                 }
+            });
+            
+            // Add some interactive effects
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    options.forEach(o => o.style.borderColor = '#eee');
+                    this.style.borderColor = '#3498db';
+                });
             });
         });
     </script>
